@@ -1,5 +1,5 @@
 # ==============================================
-# Two-layer spiking network with FF (static) and FB (plastic STDP)
+# Two-layer spiking network with FF (static) and FB (plastic STDP) (AI-state)
 # ==============================================
 
 import nest
@@ -197,18 +197,18 @@ plt.figure(1)
 plt.hist(D_FB, bins=300, label="initial delay", color='blue', alpha=0.6)
 plt.hist(d_FB, bins=300, label="final delay (w>0.2)", color='red', alpha=0.6)
 plt.legend()
-plt.xlabel("Axonal delay (ms)")
+plt.xlabel("FB delay (ms)")
 plt.ylabel("Count")
 
 plt.figure(2)
 plt.hist(w_FB, bins=300, color='gray')
-plt.xlabel("Final synaptic weights")
+plt.xlabel("Final FB weight (nS)")
 plt.ylabel("Count")
 
 plt.figure(3)
 plt.plot(D_FB, w_FB, '.k', markersize=2)
-plt.xlabel("Initial delay (ms)")
-plt.ylabel("Final weight")
+plt.xlabel("FB delay (ms)")
+plt.ylabel("FB weight (nS)")
 
 plt.figure(4)
 ax4 = plt.gca()
@@ -223,15 +223,15 @@ for i in selected_indices:
     color = cmap(norm(D_FB[i]))
     ax4.plot(sim_arr, weight_arr_FB[:, i], color=color, lw=1)
 
-#  fix for Python 2.7
+
 sm = plt.cm.ScalarMappable(norm=norm, cmap=cmap)
 sm.set_array(D_FB)
 cbar = plt.colorbar(sm, ax=ax4)
-cbar.set_label("Initial axonal delay (ms)")
+cbar.set_label("FB delay (ms)")
 
 plt.xlabel("Time (ms)")
-plt.ylabel("Weight")
-plt.title("Evolution of selected FB connections")
+plt.ylabel("FB weight (nS)")
+
 
 
 #nest.raster_plot.from_device(SD, hist=False)
