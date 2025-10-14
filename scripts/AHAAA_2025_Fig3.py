@@ -194,8 +194,8 @@ d_FB = D_FB[active_idx % len(D_FB)]
 # Plots
 # -----------------------------
 plt.figure(1)
-plt.hist(D_FB, bins=300, label="initial delay", color='blue', alpha=0.6)
-plt.hist(d_FB, bins=300, label="final delay (w>0.2)", color='red', alpha=0.6)
+plt.hist(D_FB, bins=300, label="Initial", color='blue', alpha=0.6)
+plt.hist(d_FB, bins=300, label="Final (w>0.2)", color='red', alpha=0.6)
 plt.legend()
 plt.xlabel("FB delay (ms)")
 plt.ylabel("Count")
