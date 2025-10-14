@@ -114,10 +114,10 @@ noise = nest.Create("poisson_generator", 2, [{"rate": p_rate_ex}, {"rate": p_rat
 # Recurrent connectivity
 # -----------------------------
 for pop_ex, pop_in in [(Layer1_ex, Layer1_in), (Layer2_ex, Layer2_in)]:
-    nest.Connect(pop_ex, pop_ex, {'rule': 'fixed_indegree', 'indegree': CEE}, {'weight': j_exc_exc, 'delay': 1.})
-    nest.Connect(pop_ex, pop_in, {'rule': 'fixed_indegree', 'indegree': CEI}, {'weight': j_exc_inh, 'delay': 1.})
-    nest.Connect(pop_in, pop_ex, {'rule': 'fixed_indegree', 'indegree': CIE}, {'weight': j_inh_exc, 'delay': 2.})
-    nest.Connect(pop_in, pop_in, {'rule': 'fixed_indegree', 'indegree': CII}, {'weight': j_inh_inh, 'delay': 2.})
+    nest.Connect(pop_ex, pop_ex, {'rule': 'fixed_indegree', 'indegree': CEE,'autapses': False,"multapses":False}, {'weight': j_exc_exc, 'delay': 1.})
+    nest.Connect(pop_ex, pop_in, {'rule': 'fixed_indegree', 'indegree': CEI,'autapses': False,"multapses":False}, {'weight': j_exc_inh, 'delay': 1.})
+    nest.Connect(pop_in, pop_ex, {'rule': 'fixed_indegree', 'indegree': CIE,'autapses': False,"multapses":False}, {'weight': j_inh_exc, 'delay': 2.})
+    nest.Connect(pop_in, pop_in, {'rule': 'fixed_indegree', 'indegree': CII,'autapses': False,"multapses":False}, {'weight': j_inh_inh, 'delay': 2.})
 
 nest.CopyModel('static_synapse_hom_w', 'pp_excitatory', {'weight': weight, 'delay': 0.1})
 nest.Connect(pp, Layer1_ex[:NP], {'rule': 'fixed_indegree', 'indegree': 1}, 'pp_excitatory')
@@ -125,7 +125,7 @@ nest.Connect(pp, Layer1_ex[:NP], {'rule': 'fixed_indegree', 'indegree': 1}, 'pp_
 # Feedforward (FF) - static
 # -----------------------------
 nest.Connect(Layer1_ex[:NP], Layer2_ex[:NP],
-             {'rule': 'fixed_indegree', 'indegree': CEP},
+             {'rule': 'fixed_indegree', 'indegree': CEP,'autapses': False,"multapses":False},
              {'delay': FF_delay, 'weight': {'distribution': 'normal', 'mu':g_FF, 'sigma': 0.01}})
 
 # -----------------------------
@@ -136,7 +136,7 @@ nest.CopyModel('stdp_synapse', 'excitatory_plastic')
 
 for i in range(70):
     nest.Connect(Layer2_ex[i:i+1], FBdummy[70*i:70*(i+1)],
-                 {'rule': "all_to_all"}, {'delay': FB_delay})
+                 {'rule': "all_to_all",'autapses': False,"multapses":False}, {'delay': FB_delay})
     nest.Connect(FBdummy[70*i:70*(i+1)], Layer1_ex[:NP],
                  {'rule': 'one_to_one', 'autapses': False, 'multapses': False},
                  {"model": "excitatory_plastic", 'delay': 0.1,
