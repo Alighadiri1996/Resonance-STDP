@@ -1,5 +1,5 @@
 # ==============================================
-# Two-layer spiking network with plastic FF & FB (STDP)
+# Two-layer spiking network with plastic FF & FB (STDP) (Osc-state)
 # ==============================================
 
 import nest
@@ -198,22 +198,22 @@ d_FB = D_FB[active_idx_FB % len(D_FB)]
 # -----------------------------
 plt.figure(1, figsize=(10,5))
 plt.subplot(1,2,1)
-plt.hist(D_FF, bins=300, color='blue', alpha=0.6, label='FF initial')
-plt.hist(d_FF, bins=300, color='red', alpha=0.6, label='FF final (w>0.2)')
-plt.legend(); plt.xlabel('Delay (ms)'); plt.ylabel('Count'); plt.title('FF delays')
+plt.hist(D_FF, bins=300, color='blue', alpha=0.6, label='Initial')
+plt.hist(d_FF, bins=300, color='red', alpha=0.6, label='Final (w>0.15)')
+plt.legend(); plt.xlabel('FF delay (ms)'); plt.ylabel('Count')
 
 plt.subplot(1,2,2)
-plt.hist(D_FB, bins=300, color='blue', alpha=0.6, label='FB initial')
-plt.hist(d_FB, bins=300, color='red', alpha=0.6, label='FB final (w>0.2)')
-plt.legend(); plt.xlabel('Delay (ms)'); plt.ylabel('Count'); plt.title('FB delays')
+plt.hist(D_FB, bins=300, color='blue', alpha=0.6, label='Initial')
+plt.hist(d_FB, bins=300, color='red', alpha=0.6, label='Final (w>0.15)')
+plt.legend(); plt.xlabel('FB delay (ms)'); plt.ylabel('Count')
 
 plt.figure(2, figsize=(10,5))
-plt.subplot(1,2,1); plt.hist(w_FF, bins=300, color='gray'); plt.xlabel('Weight'); plt.ylabel('Count'); plt.title('FF final weights')
-plt.subplot(1,2,2); plt.hist(w_FB, bins=300, color='gray'); plt.xlabel('Weight'); plt.ylabel('Count'); plt.title('FB final weights')
+plt.subplot(1,2,1); plt.hist(w_FF, bins=300, color='gray'); plt.xlabel('Final FF weight (nS)'); plt.ylabel('Count')
+plt.subplot(1,2,2); plt.hist(w_FB, bins=300, color='gray'); plt.xlabel('Final FB weight (nS)'); plt.ylabel('Count')
 
 plt.figure(3, figsize=(10,5))
-plt.subplot(1,2,1); plt.plot(D_FF, w_FF, '.k', markersize=2); plt.xlabel('Initial delay'); plt.ylabel('Final weight'); plt.title('FF delay-weight')
-plt.subplot(1,2,2); plt.plot(D_FB, w_FB, '.k', markersize=2); plt.xlabel('Initial delay'); plt.ylabel('Final weight'); plt.title('FB delay-weight')
+plt.subplot(1,2,1); plt.plot(D_FF, w_FF, '.k', markersize=2); plt.xlabel('FF delay (ms)'); plt.ylabel('FF weight (nS)')
+plt.subplot(1,2,2); plt.plot(D_FB, w_FB, '.k', markersize=2); plt.xlabel('FB delay (ms)'); plt.ylabel('FB weight (nS)')
 
 plt.figure(4, figsize=(10,5))
 n_samples = 50
@@ -231,8 +231,8 @@ for i in selected_FF:
 sm1 = plt.cm.ScalarMappable(norm=norm_FF, cmap=cmap)
 sm1.set_array(D_FF)
 cbar1 = plt.colorbar(sm1)
-cbar1.set_label('Initial delay (ms)')
-plt.xlabel('Time (ms)'); plt.ylabel('Weight'); plt.title('FF evolution')
+cbar1.set_label('FF delay (ms)')
+plt.xlabel('Time (ms)'); plt.ylabel('FF weight (nS)')
 
 plt.subplot(1,2,2)
 for i in selected_FB:
@@ -241,8 +241,8 @@ for i in selected_FB:
 sm2 = plt.cm.ScalarMappable(norm=norm_FB, cmap=cmap)
 sm2.set_array(D_FB)
 cbar2 = plt.colorbar(sm2)
-cbar2.set_label('Initial delay (ms)')
-plt.xlabel('Time (ms)'); plt.ylabel('Weight'); plt.title('FB evolution')
+cbar2.set_label('FB delay (ms)')
+plt.xlabel('Time (ms)'); plt.ylabel('FB weight (nS)')
 
 plt.tight_layout()
 plt.show()
