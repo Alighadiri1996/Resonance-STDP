@@ -106,27 +106,27 @@ for ii, d_FB in enumerate(delays_arr_FB):
             nest.CopyModel('static_synapse_hom_w', 'pp_excitatory', {'weight': 0.6, 'delay': 0.1})
             nest.Connect(pulse, pop1_ex[:NP], {'rule': 'fixed_indegree', 'indegree': 1}, 'pp_excitatory')
 
-            nest.Connect(pop1_ex, pop1_ex, {'rule': 'fixed_indegree', 'indegree': CEE, 'autapses': False},
+            nest.Connect(pop1_ex, pop1_ex, {'rule': 'fixed_indegree', 'indegree': CEE,'autapses': False,"multapses":False},
                          {'weight': j_exc_exc, 'delay': in_delay_ex})
-            nest.Connect(pop1_ex, pop1_in, {'rule': 'fixed_indegree', 'indegree': CEI, 'autapses': False},
+            nest.Connect(pop1_ex, pop1_in, {'rule': 'fixed_indegree', 'indegree': CEI,'autapses': False,"multapses":False},
                          {'weight': j_exc_inh, 'delay': in_delay_ex})
-            nest.Connect(pop1_in, pop1_ex, {'rule': 'fixed_indegree', 'indegree': CIE, 'autapses': False},
+            nest.Connect(pop1_in, pop1_ex, {'rule': 'fixed_indegree', 'indegree': CIE,'autapses': False,"multapses":False},
                          {'weight': j_inh_exc, 'delay': in_delay_in})
-            nest.Connect(pop1_in, pop1_in, {'rule': 'fixed_indegree', 'indegree': CII, 'autapses': False},
+            nest.Connect(pop1_in, pop1_in, {'rule': 'fixed_indegree', 'indegree': CII,'autapses': False,"multapses":False},
                          {'weight': j_inh_inh, 'delay': in_delay_in})
 
-            nest.Connect(pop2_ex, pop2_ex, {'rule': 'fixed_indegree', 'indegree': CEE, 'autapses': False},
+            nest.Connect(pop2_ex, pop2_ex, {'rule': 'fixed_indegree', 'indegree': CEE,'autapses': False,"multapses":False},
                          {'weight': j_exc_exc, 'delay': in_delay_ex})
-            nest.Connect(pop2_ex, pop2_in, {'rule': 'fixed_indegree', 'indegree': CEI, 'autapses': False},
+            nest.Connect(pop2_ex, pop2_in, {'rule': 'fixed_indegree', 'indegree': CEI,'autapses': False,"multapses":False},
                          {'weight': j_exc_inh, 'delay': in_delay_ex})
-            nest.Connect(pop2_in, pop2_ex, {'rule': 'fixed_indegree', 'indegree': CIE, 'autapses': False},
+            nest.Connect(pop2_in, pop2_ex, {'rule': 'fixed_indegree', 'indegree': CIE,'autapses': False,"multapses":False},
                          {'weight': j_inh_exc, 'delay': in_delay_in})
-            nest.Connect(pop2_in, pop2_in, {'rule': 'fixed_indegree', 'indegree': CII, 'autapses': False},
+            nest.Connect(pop2_in, pop2_in, {'rule': 'fixed_indegree', 'indegree': CII,'autapses': False,"multapses":False},
                          {'weight': j_inh_inh, 'delay': in_delay_in})
 
-            nest.Connect(pop1_ex[:NP], pop2_ex[:NP], {'rule': 'fixed_indegree', 'indegree': CEP, 'autapses': False},
+            nest.Connect(pop1_ex[:NP], pop2_ex[:NP], {'rule': 'fixed_indegree', 'indegree': CEP,'autapses': False,"multapses":False},
                          {'delay': d_FW, 'weight': w_fw})
-            nest.Connect(pop2_ex[:NP], pop1_ex[:NP], {'rule': 'fixed_indegree', 'indegree': CEP, 'autapses': False},
+            nest.Connect(pop2_ex[:NP], pop1_ex[:NP], {'rule': 'fixed_indegree', 'indegree': CEP,'autapses': False,"multapses":False},
                          {'delay': d_FB, 'weight': w_fb})
 
             SD = nest.Create('spike_detector')
