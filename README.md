@@ -12,10 +12,12 @@ The Python script `AHAAA_2025_Fig{1,2,3,4,6}_Plot.py` can be used to reproduce t
 
 **Requirements:**
 
-- NEST Simulator (v2.16.0)  
-- pylab  
-- Numpy
+- Python 2.7.17
+- NEST Simulator (v2.16.0)
+- NumPy
+- pylab
 - matplotlib
+
 
 
 
