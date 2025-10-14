@@ -150,7 +150,7 @@ for ii, d_FB in enumerate(delays_arr_FB):
             hist_noise, _ = np.histogram(ts[(ts >= t_noise_start) & (ts < t_noise_end)], bins=bins_noise)
             hist_signal, _ = np.histogram(ts[(ts >= t_sig_start) & (ts < t_sig_end)], bins=bins_signal)
 
-            # --- Compute SNR normally (variance-based) ---
+            # --- Compute SNR 
             var_signal = np.var(hist_signal)
             var_noise = np.var(hist_noise)
             snr_val = var_signal / var_noise if var_noise > 0 else 0.0
