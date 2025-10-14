@@ -1,5 +1,5 @@
 # ==============================================
-# Two-layer spiking network with inter-layer STDP
+# Two-layer spiking network with plastic (STDP) FF connections (AI-state)
 # ==============================================
 
 import nest
@@ -196,21 +196,21 @@ d_FF = D_FF[active_idx % len(D_FF)]
 # Plots
 # -----------------------------
 plt.figure(1)
-plt.hist(D_FF, bins=300, label="initial delay", color='blue', alpha=0.6)
-plt.hist(d_FF, bins=300, label="final delay (w>0.2)", color='red', alpha=0.6)
+plt.hist(D_FF, bins=300, label="Initial", color='blue', alpha=0.6)
+plt.hist(d_FF, bins=300, label="Final (w>0.2)", color='red', alpha=0.6)
 plt.legend()
-plt.xlabel("Axonal delay (ms)")
+plt.xlabel("FF delay (ms)")
 plt.ylabel("Count")
 
 plt.figure(2)
 plt.hist(w_FF, bins=300, color='gray')
-plt.xlabel("Final synaptic weights")
+plt.xlabel("Final FF weight (nS)")
 plt.ylabel("Count")
 
 plt.figure(3)
 plt.plot(D_FF, w_FF, '.k', markersize=2)
-plt.xlabel("Initial delay (ms)")
-plt.ylabel("Final weight")
+plt.xlabel("FF delay (ms)")
+plt.ylabel("FF weight (nS)")
 
 # -----------------------------
 # Figure 4: Evolution of selected FF connections colored by initial delay
@@ -236,11 +236,11 @@ for i in selected_indices:
 sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
 sm._A = []
 cbar = plt.colorbar(sm, ax=ax4)
-cbar.set_label("Initial axonal delay (ms)")
+cbar.set_label("FF delay (ms)")
 
 plt.xlabel("Time (ms)")
-plt.ylabel("Weight")
-plt.title("Evolution of selected FF connections")
+plt.ylabel("FF weight (nS)")
+
 
 
 
