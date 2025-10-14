@@ -11,6 +11,7 @@ Usage
 The python script 'AHAAA_2025_Fig{1,2,3,4,6}_Plot.py' will reproduce the key results shown in the Figure 1, 2, 3, 4, and 6 of the manuscript.
 
 Requirements
+
 NEST Simulator (v2.16.0)
 pylab
 Numpy
