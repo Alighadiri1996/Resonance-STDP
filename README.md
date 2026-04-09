@@ -23,21 +23,22 @@ The Python script `AHAAA_2025_Fig{1,2,3,4,6}_Plot.py` can be used to reproduce t
 To ensure a consistent environment with the correct versions of NEST (v2.20.2 or v2.16.0) and Python, it is recommended to run the simulations using a Docker container. This avoids local installation conflicts.
 
 ```bash
-# Allow Docker to connect to the X11 server (optional for headless)
+# Allow container to access host display (for GUI/plotting support)
 xhost +local:docker
 
-# Run the simulation container
+# Launch the container
 docker run -it --rm \
     -e DISPLAY=$DISPLAY \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v "$(pwd)":/data \
     -w /data \
     nest/nest-simulator:2.20.2 \
-    python your_simulation_script.py
+    bash
 ```
+Inside the running container's `bash` session, you can then execute simulations (`python your_simulation_script.py`) and manage the environment (`pip install seaborn`).
 
 ## Parallel Execution Strategy
 
-To optimize computational throughput, this project utilizes Task-Level Parallelism instead of NEST's internal multithreading.
+To optimize computational throughput, this project uses Task-Level Parallelism rather than NEST's internal multithreading.
 `local_num_threads` is set to 1 inside the NEST kernel.
 Multiple independent simulations are run across CPU cores using a Python `multiprocessing.Pool`.
