@@ -19,8 +19,25 @@ The Python script `AHAAA_2025_Fig{1,2,3,4,6}_Plot.py` can be used to reproduce t
 - matplotlib
 
 
+## Running with Docker (Recommended)
+To ensure a consistent environment with the correct versions of NEST (v2.20.2 or v2.16.0) and Python, it is recommended to run the simulations using a Docker container. This avoids local installation conflicts.
 
+```bash
+# Allow Docker to connect to the X11 server (optional for headless)
+xhost +local:docker
 
+# Run the simulation container
+docker run -it --rm \
+    -e DISPLAY=$DISPLAY \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v "$(pwd)":/data \
+    -w /data \
+    nest/nest-simulator:2.20.2 \
+    python your_simulation_script.py
+```
 
+## Parallel Execution Strategy
 
-
+To optimize computational throughput, this project utilizes Task-Level Parallelism instead of NEST's internal multithreading.
+`local_num_threads` is set to 1 inside the NEST kernel.
+Multiple independent simulations are run across CPU cores using a Python `multiprocessing.Pool`.
