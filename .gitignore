@@ -20,3 +20,5 @@ __pycache__/
 .ipynb_checkpoints/
 *.swp
 .DS_Store
+!figures/*.png
+!supplementary/supplementary.pdf
