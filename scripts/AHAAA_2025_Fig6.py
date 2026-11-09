@@ -7,6 +7,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import nest.raster_plot
 
+# PyNEST 2.20 still uses np.float_, which NumPy 2 removed (e.g. nest/nest-simulator:2.20.2).
+if not hasattr(np, 'float_'):
+    np.float_ = np.float64
+
 # -----------------------------
 # Simulation setup
 # -----------------------------
@@ -230,7 +234,7 @@ for i in selected_FF:
     plt.plot(sim_arr, weight_arr_FF[:, i], color=color, lw=1)
 sm1 = plt.cm.ScalarMappable(norm=norm_FF, cmap=cmap)
 sm1.set_array(D_FF)
-cbar1 = plt.colorbar(sm1)
+cbar1 = plt.colorbar(sm1, ax=plt.gca())
 cbar1.set_label('FF delay (ms)')
 plt.xlabel('Time (ms)'); plt.ylabel('FF weight (nS)')
 
@@ -240,7 +244,7 @@ for i in selected_FB:
     plt.plot(sim_arr, weight_arr_FB[:, i], color=color, lw=1)
 sm2 = plt.cm.ScalarMappable(norm=norm_FB, cmap=cmap)
 sm2.set_array(D_FB)
-cbar2 = plt.colorbar(sm2)
+cbar2 = plt.colorbar(sm2, ax=plt.gca())
 cbar2.set_label('FB delay (ms)')
 plt.xlabel('Time (ms)'); plt.ylabel('FB weight (nS)')
 
