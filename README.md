@@ -125,24 +125,28 @@ between panels and are set in the plot scripts:
 
 The scripts in `scripts/` are the original simulation scripts of the main-text figures, kept as
 first released: one parameter set per script (`AHAAA_2025_Fig1.py` sweeps the FF and FB delays),
-each simulating and then plotting. To run them in the `nest/nest-simulator:2.20.2` image (NumPy 2.2,
-and a current Matplotlib after `pip install matplotlib`), make two small edits first:
+each simulating and then plotting. Short test runs in the `nest/nest-simulator:2.20.2` image
+(NumPy 2.2, and Matplotlib 3.10 after `pip install matplotlib`) gave:
 
-1. Right after `import numpy as np`, restore the alias that PyNEST 2.20 needs. Without it, the
-   scripts stop with `AttributeError: np.float_ was removed in the NumPy 2.0 release` as soon as
-   PyNEST returns numeric arrays (for example from `GetStatus`):
+| Script | As released | Edit needed |
+|---|---|---|
+| `AHAAA_2025_Fig1.py` | stops at `nest.GetStatus(SD, keys='events')` with `AttributeError: np.float_ was removed in the NumPy 2.0 release` | NumPy alias |
+| `AHAAA_2025_Fig2.py` | simulates, then stops at `nest.raster_plot.from_device` with the same error | NumPy alias |
+| `AHAAA_2025_Fig3.py` | runs | none |
+| `AHAAA_2025_Fig4.py`, `AHAAA_2025_Fig6.py` | simulate, then stop at `plt.colorbar(sm1)` with `ValueError: Unable to determine Axes to steal space for Colorbar` | colorbar Axes |
 
-   ```python
-   if not hasattr(np, 'float_'):
-       np.float_ = np.float64
-   ```
+The NumPy alias goes right after `import numpy as np` (PyNEST 2.20 still uses `np.float_`); adding
+it to every script does no harm:
 
-2. In `AHAAA_2025_Fig4.py` and `AHAAA_2025_Fig6.py`, pass the Axes to the two colorbars, which
-   current Matplotlib (tested with 3.10) otherwise rejects with a `ValueError`:
-   `plt.colorbar(sm1, ax=plt.gca())` and `plt.colorbar(sm2, ax=plt.gca())`.
+```python
+if not hasattr(np, 'float_'):
+    np.float_ = np.float64
+```
 
-Then run them like the other scripts, for example `python3 scripts/AHAAA_2025_Fig4.py` in the
-container.
+For the colorbars, write `plt.colorbar(sm1, ax=plt.gca())` and `plt.colorbar(sm2, ax=plt.gca())`.
+Fig. 2, 4 and 6 fail only after their simulation has finished (2500 s of simulated time for
+Fig. 4), so make the edits before a full run. Then run the scripts like the others, for example
+`python3 scripts/AHAAA_2025_Fig4.py` in the container.
 
 ## Citation
 
