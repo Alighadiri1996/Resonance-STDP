@@ -6,7 +6,7 @@
 # see the top-level README. Plotting needs matplotlib and seaborn.
 #
 # Master seeds as in the published runs: 1234 for all tau_in,2 except 7 ms, which was
-# re-run with 12345 (see README, "Notes on the supplementary analyses").
+# re-run with 12345.
 set -euo pipefail
 cd "$(dirname "$0")"
 
