@@ -46,6 +46,15 @@ The code uses the NEST 2 API, so we ran the scripts in Docker with the
 ```bash
 docker run --rm -it -v "$(pwd)":/data -w /data nest/nest-simulator:2.20.2 bash
 pip install matplotlib seaborn   # inside the container, for the plots
+
+# then, inside the container, for example:
+python3 scripts/AHAAA_2025_Fig3.py                                # main-text Fig. 3 (long run)
+cd supplementary/FigS1_resonance_frequency
+python3 S1A_single_network_response.py                            # Fig. S1A simulation (seconds)
+python3 S1A_plot.py --data resonance_results.npz                  # Fig. S1A plot
+cd /data
+bash supplementary/FigS2_S3_resonance_mismatch/run_S2_S3.sh       # Figs. S2, S3 (hours)
+bash supplementary/FigS4_S5_connection_probability/run_S4_S5.sh   # Figs. S4, S5 (after S2, S3)
 ```
 
 ## Citation
