@@ -41,7 +41,12 @@ curves "Feedforward (FF)" and "Feedback (FB)".
 ## Requirements
 
 The code uses the NEST 2 API, so we ran the scripts in Docker with the
-`nest/nest-simulator:2.20.2` image.
+`nest/nest-simulator:2.20.2` image:
+
+```bash
+docker run --rm -it -v "$(pwd)":/data -w /data nest/nest-simulator:2.20.2 bash
+pip install matplotlib seaborn   # inside the container, for the plots
+```
 
 ## Citation
 
