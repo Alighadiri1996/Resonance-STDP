@@ -8,10 +8,6 @@ import matplotlib.pyplot as plt
 import pylab
 import nest.raster_plot
 
-# PyNEST 2.20 still uses np.float_, which NumPy 2 removed (e.g. nest/nest-simulator:2.20.2).
-if not hasattr(np, 'float_'):
-    np.float_ = np.float64
-
 # -----------------------------
 # Simulation setup
 # -----------------------------
