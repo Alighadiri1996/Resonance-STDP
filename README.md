@@ -28,7 +28,15 @@ supplementary/
 ```
 
 Every supplementary script starts with a docstring that states what it simulates or plots, the
-parameters, and how to run it.
+parameters, and how to run it. Each supplementary folder also contains its figures as published,
+cropped from the supplementary PDF without captions, to compare against re-runs:
+[Fig. S1](supplementary/FigS1_resonance_frequency/FigS1.png),
+[Fig. S2](supplementary/FigS2_S3_resonance_mismatch/FigS2.png),
+[Fig. S3](supplementary/FigS2_S3_resonance_mismatch/FigS3.png),
+[Fig. S4](supplementary/FigS4_S5_connection_probability/FigS4.png),
+[Fig. S5](supplementary/FigS4_S5_connection_probability/FigS5.png).
+In the published Fig. S5A the legend reads "Average FF/FB delays"; the plot script labels the
+curves "Feedforward (FF)" and "Feedback (FB)".
 
 ## Requirements
 
