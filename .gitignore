@@ -1,0 +1,22 @@
+# Simulation output and figures (large; regenerate with the scripts)
+*.npz
+*.npy
+*.gdf
+*.dat
+*.log
+*.png
+*.pdf
+*.eps
+plots/
+
+# Published results small enough to keep in the repository
+!supplementary/**/data/*.npz
+# Published supplementary figures (FigS1.png ... FigS5.png), one per figure folder
+!supplementary/*/FigS[0-9].png
+
+# Python and editor files
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+*.swp
+.DS_Store
