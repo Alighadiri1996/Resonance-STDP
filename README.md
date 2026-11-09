@@ -49,8 +49,9 @@ docker run --rm -it -v "$(pwd)":/data -w /data nest/nest-simulator:2.20.2 bash
 pip install matplotlib seaborn      # inside the container
 ```
 
-PyNEST 2.20 still refers to `np.float_`, which NumPy 2 removed; every script that imports `nest`
-restores this alias at the top, so no NumPy downgrade is needed. All simulations run on a single
+PyNEST 2.20 still refers to `np.float_`, which NumPy 2 removed; the supplementary scripts restore
+this alias at the top, so no NumPy downgrade is needed (for the main-text scripts, see
+[Main-text figures](#main-text-figures)). All simulations run on a single
 thread (`local_num_threads = 1`). This is required: the analysis matches each synapse's delay to
 its weight trace using the connection order of a single-threaded kernel. Independent runs (for
 example the seven conditions of Figs. S2/S3) are started as separate processes; the `run_*.sh`
@@ -122,9 +123,26 @@ between panels and are set in the plot scripts:
 
 ## Main-text figures
 
-The scripts in `scripts/` are the original simulation scripts of the main-text figures, one
-parameter set per script (`AHAAA_2025_Fig1.py` sweeps the FF and FB delays). Each simulates and
-then plots; run them the same way, for example `python3 scripts/AHAAA_2025_Fig4.py` in the container.
+The scripts in `scripts/` are the original simulation scripts of the main-text figures, kept as
+first released: one parameter set per script (`AHAAA_2025_Fig1.py` sweeps the FF and FB delays),
+each simulating and then plotting. To run them in the `nest/nest-simulator:2.20.2` image (NumPy 2.2,
+and a current Matplotlib after `pip install matplotlib`), make two small edits first:
+
+1. Right after `import numpy as np`, restore the alias that PyNEST 2.20 needs. Without it, the
+   scripts stop with `AttributeError: np.float_ was removed in the NumPy 2.0 release` as soon as
+   PyNEST returns numeric arrays (for example from `GetStatus`):
+
+   ```python
+   if not hasattr(np, 'float_'):
+       np.float_ = np.float64
+   ```
+
+2. In `AHAAA_2025_Fig4.py` and `AHAAA_2025_Fig6.py`, pass the Axes to the two colorbars, which
+   current Matplotlib (tested with 3.10) otherwise rejects with a `ValueError`:
+   `plt.colorbar(sm1, ax=plt.gca())` and `plt.colorbar(sm2, ax=plt.gca())`.
+
+Then run them like the other scripts, for example `python3 scripts/AHAAA_2025_Fig4.py` in the
+container.
 
 ## Citation
 
